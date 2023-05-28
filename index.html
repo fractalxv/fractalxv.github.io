@@ -1,28 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>fractal</title>
+  <title>🍀 fractal</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:wght@100&display=swap');
-
     body {
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
-      font-family: 'Roboto Serif', serif;
-      font-weight: 100;
-      font-size: 10px;
+      font-size: 16px;
+      flex-direction: column;
+    }
+
+    .yotsuba {
+      max-width: 250px;
+      height: auto;
+      margin-bottom: 5px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      font-family: 'IBM Serif', serif;
+      font-weight: 300;
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+    .links-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .links-container a {
+      margin: 0 5px;
+    }
+
+    .copyright {
+      font-size: 14px;
+      color: gray;
     }
   </style>
 </head>
 <body>
-  <h1>fractal</h1>
-  <br>
-  <b>
+  <img class="yotsuba" src="https://pbs.twimg.com/media/FVwlF_WWUAEeCof.jpg" alt="yotsuba" />
+  <h1>[ 🍀 ]</h1>
+  <h1>my internet site</h1>
+  <div class="links-container">
     <a href="https://pastebin.com/raw/7ARxm0G8">[ my pgp key ]</a>
-  </b>
+    <a href="/about/index.html">[ about ]</a>
+    <a href="/blog/blog.html">[ my blog ]</a>
+  </div>
+  <p class="copyright">
+    &copy; fractal 2023 :3
+  </p>
 </body>
 </html>
-
