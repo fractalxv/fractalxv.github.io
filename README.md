@@ -1,5 +1,10 @@
 ---
+cover: .gitbook/assets/fractalzz (1).jpg
+coverY: 0
 layout:
+  cover:
+    visible: true
+    size: hero
   title:
     visible: true
   description:
@@ -14,9 +19,7 @@ layout:
 
 # 🍀 intro
 
-im myra! ^\_\_^ welcome to my blog! \
-
-
+im myra! welcome to my blog! \
 what i currently do:\
 \> fulltime work (SRE/devops unit :D )\
 \> documenting my hobbies! (IaC dive, and stuffs!) \
