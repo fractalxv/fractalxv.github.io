@@ -1,0 +1,35 @@
+baseURL = 'https://fractalxv.github.io/'
+languageCode = 'en-us'
+title = 'my internet site'
+theme = [] # No theme, using custom layouts
+
+[params]
+  description = "my personal /var/log"
+  favicon = "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍀</text></svg>"
+
+[menu]
+  [[menu.main]]
+    identifier = "key"
+    name = "my gpg key"
+    url = "/key.txt"
+    weight = 1
+  [[menu.main]]
+    identifier = "about"
+    name = "about"
+    url = "/about/"
+    weight = 2
+  [[menu.main]]
+    identifier = "drawings"
+    name = "my drawings"
+    url = "/drawings/"
+    weight = 3
+  [[menu.main]]
+    identifier = "login"
+    name = "login"
+    url = "/admin/"
+    weight = 4
+  [[menu.main]]
+    identifier = "blog"
+    name = "my blog"
+    url = "/blog/"
+    weight = 5

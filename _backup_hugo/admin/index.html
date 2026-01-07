@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractal Admin</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍀</text></svg>">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .admin-panel {
+            max-width: 500px;
+            margin: 2rem auto;
+            text-align: left;
+        }
+
+        input,
+        button,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 1rem;
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+            background: var(--text-color);
+            color: var(--bg-color);
+            border: none;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        .file-input {
+            border: 2px dashed var(--text-color);
+            padding: 2rem;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>[ admin panel ]</h1>
+
+        <div id="login-section">
+            <input type="password" id="password" placeholder="enter password">
+            <button onclick="login()">Login</button>
+        </div>
+
+        <div id="admin-content" class="hidden">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <button onclick="showSection('upload')" style="width: auto; margin: 0 5px;">Upload Drawing</button>
+                <button onclick="showSection('blog')" style="width: auto; margin: 0 5px;">Write Blog Post</button>
+            </div>
+
+            <div id="upload-section" class="admin-panel hidden">
+                <h3>Upload New Drawing</h3>
+                <form id="uploadForm">
+                    <input type="file" name="image" id="imageInput" accept="image/*" required class="file-input">
+                    <input type="text" name="caption" placeholder="Caption" required>
+                    <button type="submit">Upload & Publish</button>
+                </form>
+                <div id="upload-status" class="status"></div>
+            </div>
+
+            <div id="blog-section" class="admin-panel hidden">
+                <h3>Write Blog Post</h3>
+                <form id="blogForm">
+                    <input type="text" id="postTitle" placeholder="Post Title" required>
+                    <textarea id="postContent" rows="15" placeholder="Write your content here..." required></textarea>
+                    <small>Supports simple text. Newlines will be preserved.</small>
+                    <br><br>
+                    <button type="submit">Publish Post</button>
+                </form>
+                <div id="blog-status" class="status"></div>
+            </div>
+
+            <br>
+            <hr><br>
+            <div style="text-align: center;">
+                <a href="../drawings/" target="_blank">View Gallery</a> |
+                <a href="../blog/" target="_blank">View Blog</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            const pass = document.getElementById('password').value;
+            localStorage.setItem('auth', pass);
+            fetch('/api/check-auth', { headers: { 'Authorization': pass } })
+                .then(res => {
+                    if (res.ok) {
+                        document.getElementById('login-section').classList.add('hidden');
+                        document.getElementById('admin-content').classList.remove('hidden');
+                        showSection('blog'); // Default to blog or upload
+                    } else {
+                        alert('Wrong password');
+                    }
+                });
+        }
+
+        function showSection(id) {
+            document.querySelectorAll('.admin-panel').forEach(el => el.classList.add('hidden'));
+            document.getElementById(id + '-section').classList.remove('hidden');
+        }
+
+        /* Upload Drawing Logic */
+        document.getElementById('uploadForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const status = document.getElementById('upload-status');
+            status.innerText = 'Uploading...';
+
+            const formData = new FormData(this);
+            const pass = localStorage.getItem('auth');
+
+            fetch('/api/upload', {
+                method: 'POST',
+                headers: { 'Authorization': pass },
+                body: formData
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        status.innerText = 'Success! Image uploaded.';
+                        this.reset();
+                    } else {
+                        status.innerText = 'Error: ' + data.message;
+                    }
+                })
+                .catch(err => status.innerText = 'Upload failed.');
+        });
+
+        /* Blog Post Logic */
+        document.getElementById('blogForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const status = document.getElementById('blog-status');
+            status.innerText = 'Publishing...';
+
+            const title = document.getElementById('postTitle').value;
+            const content = document.getElementById('postContent').value;
+            const pass = localStorage.getItem('auth');
+
+            fetch('/api/blog', {
+                method: 'POST',
+                headers: {
+                    'Authorization': pass,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ title, content })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        status.innerText = 'Success! Post published.';
+                        this.reset();
+                    } else {
+                        status.innerText = 'Error: ' + data.message;
+                    }
+                })
+                .catch(err => status.innerText = 'Publish failed.');
+        });
+    </script>
+</body>
+
+</html>

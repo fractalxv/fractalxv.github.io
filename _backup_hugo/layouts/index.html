@@ -1,0 +1,17 @@
+{{ define "header" }}
+<header>
+    <div class="profile-container">
+        <a href="{{ .Site.BaseURL }}">
+            <img src="{{ .Site.BaseURL }}images/mypfp.jpg" alt="profile picture" class="profile-img">
+        </a>
+    </div>
+    <h1>
+        <span class="typewriter" data-text="my internet site"></span><span class="blink">_</span>
+    </h1>
+</header>
+{{ end }}
+
+{{ define "main" }}
+<!-- Main content is handled by header in this specific design, but we can add body content here if any -->
+{{ .Content }}
+{{ end }}

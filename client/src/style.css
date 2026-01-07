@@ -1,0 +1,376 @@
+/* Global Variables */
+:root {
+  --bg-color: #fdf6e3;
+  /* Solarized Base3 */
+  --text-color: #657b83;
+  /* Solarized Base00 */
+  --accent-color: #859900;
+  /* Solarized Green */
+  --hover-bg: #eee8d5;
+  /* Solarized Base2 */
+  --font-stack: sans-serif;
+  --max-width: 900px;
+  --spacing: 1.5rem;
+}
+
+/* Dark mode removed to enforce white background */
+
+/* Reset & Base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-stack);
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Layout Container */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  padding: var(--spacing);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+  opacity: 0;
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+/* Semantic Sections */
+header,
+main,
+footer,
+nav {
+  margin-bottom: var(--spacing);
+}
+
+/* Typing Effect Container */
+.terminal-block {
+  margin-bottom: 2rem;
+  position: relative;
+  padding-left: 0;
+  /* Removed border-left since we are centering, maybe just leave it or adapt */
+  border-left: none;
+}
+
+.terminal-block:hover {
+  /* border-left-color: var(--accent-color); */
+  color: var(--accent-color);
+}
+
+/* Image Styling */
+.profile-img {
+  max-width: 230px;
+  border-radius: 0;
+  border: 0px solid var(--text-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: block;
+  margin: 0 auto 1rem auto;
+}
+
+.profile-img:hover {
+  transform: scale(1.05);
+  box-shadow: 4px 4px 0px var(--accent-color);
+}
+
+/* ASCII Art / Titles */
+h1,
+h2,
+.ascii-art {
+  font-weight: normal;
+  font-size: 1.1em;
+  margin: 0 0 1rem 0;
+  white-space: pre-wrap;
+}
+
+/* Links & Nav */
+a {
+  color: var(--text-color);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--text-color);
+  transition: all 0.2s ease;
+  padding-bottom: 2px;
+  cursor: pointer;
+}
+
+a:hover {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+  border-bottom-style: solid;
+  text-decoration: none;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+nav a::before {
+  content: '[ ';
+  color: var(--accent-color);
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+nav a::after {
+  content: ' ]';
+  color: var(--accent-color);
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+nav a:hover::before,
+nav a:hover::after {
+  opacity: 1;
+  color: var(--bg-color);
+}
+
+/* Footer */
+footer {
+  font-size: 0.85em;
+  opacity: 0.7;
+  margin-top: auto;
+  padding-top: 2rem;
+  border-top: 1px dotted var(--text-color);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.blink {
+  animation: blinker 1s step-end infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Utilities */
+/* Drawings Gallery */
+.container-wide {
+  width: 100%;
+  max-width: 1200px;
+  /* Wider canvas for the gallery */
+  padding: var(--spacing);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  /* Don't center vertically for long pages */
+  align-items: center;
+  text-align: left;
+  /* Align text left for the header content */
+  min-height: 100vh;
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.gallery-header {
+  width: 100%;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.gallery-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.gallery-subtitle {
+  color: var(--accent-color);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.section-title {
+  width: 100%;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gallery-grid {
+  column-count: 4;
+  column-gap: 1.5rem;
+  width: 100%;
+  margin-bottom: 3rem;
+}
+
+@media (max-width: 1000px) {
+  .gallery-grid {
+    column-count: 3;
+  }
+}
+
+@media (max-width: 700px) {
+  .gallery-grid {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 400px) {
+  .gallery-grid {
+    column-count: 1;
+  }
+}
+
+.gallery-item {
+  break-inside: avoid;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 20px;
+  /* Rounded corners like reference */
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.gallery-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  /* border-color: var(--accent-color); Removed border for clean card look */
+}
+
+.gallery-item img {
+  width: 100%;
+  height: auto;
+  /* Let height adapt for masonry */
+  object-fit: cover;
+  display: block;
+  aspect-ratio: auto;
+  /* Remove forced square aspect ratio to allow true masonry */
+  /* Randomize aspect ratios slightly if using placeholders, but here we just let natural height work */
+}
+
+/* Lightbox Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(253, 246, 227, 0.95);
+  /* Solarized Base3 with opacity */
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 90vh;
+  /* Adjust for better fit */
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  animation: zoomIn 0.3s;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0)
+  }
+
+  to {
+    transform: scale(1)
+  }
+}
+
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: var(--text-color);
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: var(--accent-color);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: var(--text-color);
+  padding: 10px 0;
+  height: 150px;
+}
+
+/* Blog Table - Ported manually since it was in index.html */
+.blog-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-stack);
+  font-size: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.blog-table th {
+  text-align: left;
+  padding: 12px 8px;
+  border-bottom: 2px solid var(--text-color);
+  font-weight: bold;
+  color: var(--text-color);
+  /* Revert to text color */
+  background-color: transparent;
+  /* Remove heavy background */
+}
+
+.blog-table td {
+  border-bottom: 1px dashed var(--text-color);
+  padding: 12px 8px;
+  vertical-align: top;
+}
+
+.timestamp-col {
+  width: 140px;
+  /* Fixed width for better alignment */
+  white-space: nowrap;
+  font-family: inherit;
+  opacity: 0.8;
+}

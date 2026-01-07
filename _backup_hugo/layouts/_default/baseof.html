@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .Title }}</title>
+    <link rel="icon" href="{{ .Site.Params.favicon }}">
+    <link rel="stylesheet" href="{{ .Site.BaseURL }}style.css">
+    {{ block "head" . }}{{ end }}
+</head>
+
+<body>
+    <div class="container{{ if eq .Title " my drawings" }}-wide{{ else if eq .Section "drawings" }}-wide{{ end }}">
+        {{ block "header" . }}{{ end }}
+
+        <main style="width: 100%;">
+            {{ block "main" . }}{{ end }}
+
+            <br>
+            <hr>
+            <br>
+
+            <nav>
+                {{ range .Site.Menus.main }}
+                <a href="{{ .URL }}">{{ .Name }}</a>
+                {{ end }}
+            </nav>
+        </main>
+
+        <footer>
+            <br>
+            <p class="copyright">&copy; fractal 2026</p>
+        </footer>
+    </div>
+    <script src="{{ .Site.BaseURL }}script.js"></script>
+    {{ block "scripts" . }}{{ end }}
+</body>
+
+</html>

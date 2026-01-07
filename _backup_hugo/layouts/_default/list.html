@@ -1,0 +1,36 @@
+{{ define "header" }}
+<header>
+    <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+        <div>
+            <div class="blog-title">fractal</div>
+            <div class="blog-subtitle">my personal /var/log</div>
+        </div>
+        <nav style="font-size: 0.9rem;">
+            <a href="{{ .Site.BaseURL }}">Home</a>
+            <a href="{{ .Site.BaseURL }}drawings/">Drawings</a>
+            <a href="{{ .Site.BaseURL }}about/">About</a>
+        </nav>
+    </div>
+</header>
+{{ end }}
+
+{{ define "main" }}
+<div id="blog-list">
+    <table class="blog-table">
+        <thead>
+            <tr>
+                <th class="timestamp-col">Timestamp</th>
+                <th>Title</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ range .Pages }}
+            <tr>
+                <td>{{ .Date.Format "2006-01-02 15:04:05" }}</td>
+                <td><a href="{{ .RelPermalink }}" style="border:none;">{{ .Title }}</a></td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+</div>
+{{ end }}

@@ -1,0 +1,28 @@
+{{ define "header" }}
+<div class="container-wide">
+    <div class="gallery-header">
+        <h1 class="gallery-title">my drawings</h1>
+    </div>
+
+    <div class="section-title">
+        <span style="font-weight: normal; opacity: 0.5;">&#10003;</span>
+    </div>
+</div>
+{{ end }}
+
+{{ define "main" }}
+<div class="gallery-grid">
+    {{ range .Site.Data.drawings }}
+    <div class="gallery-item">
+        <img src="{{ .src }}" alt="{{ .caption }}" loading="lazy">
+    </div>
+    {{ end }}
+</div>
+
+<!-- Lightbox Modal -->
+<div id="lightbox" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="lightbox-img">
+    <div id="caption"></div>
+</div>
+{{ end }}
